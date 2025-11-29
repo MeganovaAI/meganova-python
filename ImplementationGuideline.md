@@ -60,24 +60,16 @@ meganova/
   models/
     __init__.py
     chat.py
-    characters.py
-    sessions.py
     models_.py
     usage.py
     billing.py
-    limits.py
-    health.py
     common.py
   resources/
     __init__.py
     chat.py          # ChatResource
-    characters.py    # CharactersResource
-    sessions.py      # SessionsResource
     models_.py       # ModelsResource
     usage.py         # UsageResource
     billing.py       # BillingResource
-    limits.py        # LimitsResource
-    health.py        # HealthResource
   version.py
 ```
 
@@ -128,13 +120,9 @@ client = MegaNova(
 
 ```python
 client.chat        # ChatResource
-client.characters  # CharactersResource
-client.sessions    # SessionsResource
 client.models      # ModelsResource
 client.usage       # UsageResource
 client.billing     # BillingResource
-client.limits      # LimitsResource
-client.health      # HealthResource
 ```
 
 ---
@@ -150,9 +138,8 @@ class ChatResource:
     def create(
         self,
         *,
-        session_id: str,
         messages: list[dict],
-        model: str | None = None,
+        model: str,
         temperature: float | None = None,
         max_tokens: int | None = None,
         stream: bool = False,
@@ -165,9 +152,8 @@ class ChatResource:
 
 ```python
 resp = client.chat.create(
-    session_id="sess_123",
     messages=[
-        {"role": "user", "content": "Hey Luna, how was your night in Neon Harbor?"}
+        {"role": "user", "content": "Hey, how are you?"}
     ],
     model="manta-flash",
     temperature=0.9,
@@ -226,9 +212,8 @@ class ChatResource:
     def stream(
         self,
         *,
-        session_id: str,
         messages: list[dict],
-        model: str | None = None,
+        model: str,
         temperature: float | None = None,
         max_tokens: int | None = None,
         **kwargs,
@@ -240,8 +225,8 @@ class ChatResource:
 
 ```python
 for chunk in client.chat.stream(
-    session_id="sess_123",
     messages=[{"role": "user", "content": "Describe the city tonight."}],
+    model="manta-flash",
 ):
     print(chunk.delta, end="", flush=True)
 ```
@@ -263,86 +248,7 @@ The resource uses SSE or chunked HTTP to yield chunks.
 
 ---
 
-## 5. Characters API
-
-### 5.1 Create character
-
-**Method:**
-
-```python
-class CharactersResource:
-    def create(
-        self,
-        *,
-        name: str,
-        description: str,
-        system_prompt: str,
-        tags: list[str] | None = None,
-        nsfw_mode: str | None = None,  # "off" | "soft" | "on"
-        model: str | None = None,
-        memory_depth: int | None = None,
-        **kwargs,
-    ) -> "Character":
-        ...
-```
-
-**Usage:**
-
-```python
-char = client.characters.create(
-    name="Luna the Cyberpunk Hacker",
-    description="A witty netrunner in a neon megacity.",
-    system_prompt="You are Luna, a playful cyberpunk hacker...",
-    tags=["romance", "cyberpunk"],
-    nsfw_mode="soft",
-    model="manta-flash",
-    memory_depth=20,
-)
-print(char.id, char.name)
-```
-
-### 5.2 List / get / update
-
-```python
-client.characters.list(limit=20, cursor=None)
-client.characters.get("char_123")
-client.characters.update("char_123", name="New Name", tags=["updated"])
-```
-
-Response models go in `models/characters.py`.
-
----
-
-## 6. Sessions API
-
-### 6.1 Create session
-
-```python
-class SessionsResource:
-    def create(
-        self,
-        *,
-        character_id: str,
-        user_id: str,
-        metadata: dict | None = None,
-        **kwargs,
-    ) -> "Session":
-        ...
-```
-
-**Usage:**
-
-```python
-session = client.sessions.create(
-    character_id="char_123",
-    user_id="user_abc",
-)
-print(session.id)
-```
-
----
-
-## 7. Models List
+## 5. Models List
 
 ### 7.1 List models
 
@@ -386,9 +292,9 @@ class ModelInfo:
 
 ---
 
-## 8. Usage & Billing
+## 6. Usage & Billing
 
-### 8.1 Usage summary
+### 6.1 Usage summary
 
 ```python
 class UsageResource:
@@ -416,7 +322,7 @@ summary = client.usage.summary(
 
 > Note: Use `from_` (with underscore) in Python to avoid `from` keyword.
 
-### 8.2 Balance
+### 6.2 Balance
 
 ```python
 class BillingResource:
@@ -433,41 +339,7 @@ print(balance.balance, balance.currency, balance.status)
 
 ---
 
-## 9. Limits & Health
-
-### 9.1 Limits
-
-```python
-class LimitsResource:
-    def get(self) -> "Limits":
-        ...
-```
-
-**Usage:**
-
-```python
-limits = client.limits.get()
-print(limits.global_limits.remaining_tpm)
-```
-
-### 9.2 Health
-
-```python
-class HealthResource:
-    def check(self) -> "HealthStatus":
-        ...
-```
-
-**Usage:**
-
-```python
-health = client.health.check()
-print(health.status, health.region)
-```
-
----
-
-## 10. Transport Layer
+## 7. Transport Layer
 
 Implement a simple HTTP transport to centralize:
 
@@ -478,7 +350,7 @@ Implement a simple HTTP transport to centralize:
 * Error handling
 * Headers
 
-### 10.1 Sync transport
+### 7.1 Sync transport
 
 `transport.py`:
 
@@ -554,7 +426,7 @@ class SyncTransport:
 
 ---
 
-## 11. Error Handling
+## 8. Error Handling
 
 `errors.py`:
 
@@ -596,7 +468,7 @@ except MeganovaError as e:
 
 ---
 
-## 12. Versioning & Compatibility
+## 9. Versioning & Compatibility
 
 * Follow **Semantic Versioning**:
 
@@ -616,39 +488,34 @@ __version__ = "0.1.0"
 
 ---
 
-## 13. Basic Usage Examples (for README)
+## 10. Basic Usage Examples (for README)
 
-### 13.1 Simple chat
+### 10.1 Simple chat
 
 ```python
 from meganova import MegaNova
 
 client = MegaNova(api_key="YOUR_API_KEY")
 
-session = client.sessions.create(
-    character_id="char_123",
-    user_id="user_abc",
-)
-
 resp = client.chat.create(
-    session_id=session.id,
     messages=[{"role": "user", "content": "Hi Luna, how are you?"}],
+    model="manta-flash"
 )
 
 print(resp.choices[0].message["content"])
 ```
 
-### 13.2 Streaming
+### 10.2 Streaming
 
 ```python
 for chunk in client.chat.stream(
-    session_id="sess_123",
     messages=[{"role": "user", "content": "Tell me about Neon Harbor tonight."}],
+    model="manta-flash"
 ):
     print(chunk.delta, end="", flush=True)
 ```
 
-### 13.3 Models & usage
+### 10.3 Models & usage
 
 ```python
 models = client.models.list()
@@ -661,7 +528,7 @@ print("Balance:", balance.balance, balance.currency)
 
 ---
 
-## 14. Testing Guidelines
+## 11. Testing Guidelines
 
 * Use **pytest**.
 * Mock HTTP with `responses` or `httpretty`.
@@ -678,7 +545,7 @@ Example test:
 ```python
 def test_chat_create_success(client, requests_mock):
     requests_mock.post(
-        "https://api.meganova.ai/v1/chat",
+        "https://api.meganova.ai/v1/chat/completions",
         json={
             "id": "msg_123",
             "choices": [
@@ -698,18 +565,22 @@ def test_chat_create_success(client, requests_mock):
     )
 
     resp = client.chat.create(
-        session_id="sess_1",
         messages=[{"role": "user", "content": "Hi"}],
+        model="manta-flash"
     )
     assert resp.choices[0].message.content == "Hello!"
 ```
 
 ---
 
-## 15. Future Extensions
+## 12. Future Extensions
 
 Keep the design ready for:
 
+* `client.characters`
+* `client.sessions`
+* `client.limits`
+* `client.health`
 * `client.images.generate(...)`
 * `client.audio.tts(...)`
 * `client.audio.stt(...)`
