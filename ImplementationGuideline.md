@@ -25,7 +25,7 @@ The Meganova Python SDK should:
        messages=[{"role": "user", "content": "Hi!"}],
    )
    print(resp.choices[0].message["content"])
-````
+```
 
 2. **Map 1:1 to the REST API**, with:
 
@@ -161,7 +161,7 @@ class ChatResource:
         ...
 ```
 
-**Usage example:**
+**Usage:**
 
 ```python
 resp = client.chat.create(
@@ -330,7 +330,7 @@ class SessionsResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 session = client.sessions.create(
@@ -355,7 +355,7 @@ class ModelsResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 for m in client.models.list():
@@ -404,7 +404,7 @@ class UsageResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 summary = client.usage.summary(
@@ -424,7 +424,7 @@ class BillingResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 balance = client.billing.get_balance()
@@ -443,7 +443,7 @@ class LimitsResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 limits = client.limits.get()
@@ -458,7 +458,7 @@ class HealthResource:
         ...
 ```
 
-Usage:
+**Usage:**
 
 ```python
 health = client.health.check()
@@ -715,5 +715,3 @@ Keep the design ready for:
 * `client.audio.stt(...)`
 * Tools / function calling
 * Async client: `AsyncMegaNova`
-
-
