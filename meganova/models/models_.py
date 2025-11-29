@@ -1,19 +1,16 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 
 class ModelInfo(BaseModel):
     id: str
-    model_name: str
+    name: Optional[str] = None
     description: Optional[str] = None
-    input_price: float
-    output_price: float
-    hosting_in: Optional[str] = None
-    parameter_size: Optional[str] = None
-    huggingface_url: Optional[str] = None
-    nebulablock_url: Optional[str] = None
-    readme: Optional[str] = None
+    created: Optional[int] = None
+    pricing: Optional[Dict[str, str]] = None
+    capabilities: Optional[Dict[str, bool]] = None
+    
+    # Allow extra fields since the API returns many more
+    model_config = {"extra": "ignore"}
 
 class ModelListResponse(BaseModel):
-    data: Dict[str, List[ModelInfo]]
-    message: str
-    status: str
+    data: List[ModelInfo]
