@@ -93,7 +93,7 @@ from meganova import MegaNova
 
 client = MegaNova(
     api_key="YOUR_API_KEY",
-    base_url="https://inference.meganova.ai/v1",
+    base_url="https://api.meganova.ai/v1",
     timeout=10.0,           # seconds
     max_retries=3,
     region="auto",          # "auto", "us-east", "eu-west", etc.
@@ -545,7 +545,7 @@ Example test:
 ```python
 def test_chat_create_success(client, requests_mock):
     requests_mock.post(
-        "https://inference.meganova.ai/v1/chat/completions",
+        "https://api.meganova.ai/v1/chat/completions",
         json={
             "id": "msg_123",
             "choices": [

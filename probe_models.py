@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv("MEGANOVA_API_KEY")
-base_url = "https://inference.meganova.ai/v1"
+base_url = "https://api.meganova.ai/v1"
 
 print(f"Probing {base_url}/models ...")
 try:
@@ -20,4 +20,3 @@ try:
         print("Error:", resp.text)
 except Exception as e:
     print(f"Exception: {e}")
-
