@@ -37,3 +37,4 @@ for chunk in client.chat.stream(
 - Usage & Billing
 - Fully typed with Pydantic models
 
+
