@@ -5,3 +5,4 @@ class BaseResponse(BaseModel):
     status: str
     message: str
 
+

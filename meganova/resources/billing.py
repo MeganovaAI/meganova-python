@@ -10,3 +10,4 @@ class BillingResource:
         data = self._transport.request("GET", "/billing/user-instance-billings")
         return BillingBalance(**data)
 
+

@@ -38,3 +38,4 @@ class MegaNova:
         self.usage = UsageResource(self._transport)
         self.billing = BillingResource(self._transport)
 
+

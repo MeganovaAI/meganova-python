@@ -36,3 +36,4 @@ class ChatStreamChunk(BaseModel):
     model: str
     choices: List[ChatStreamChunkChoice]
 
+

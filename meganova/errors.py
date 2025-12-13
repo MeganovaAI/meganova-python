@@ -18,3 +18,4 @@ class AuthenticationError(MeganovaError):
 class RateLimitError(MeganovaError):
     """Rate limit exceeded."""
 
+
