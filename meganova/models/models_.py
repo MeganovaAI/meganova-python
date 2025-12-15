@@ -6,6 +6,7 @@ class ModelInfo(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     created: Optional[int] = None
+    context_length: Optional[int] = None
     pricing: Optional[Dict[str, str]] = None
     capabilities: Optional[Dict[str, bool]] = None
     
