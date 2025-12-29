@@ -52,7 +52,7 @@ from meganova import MegaNova
 
 client = MegaNova(api_key="YOUR_API_KEY")
 
-response = client.chat.create(
+response = client.chat.completions.create(
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "What is the capital of France?"}
@@ -68,9 +68,10 @@ print(f"Usage: {response.usage}")
 ### 2. Streaming Chat
 
 ```python
-response = client.chat.stream(
+response = client.chat.completions.create(
     messages=[{"role": "user", "content": "Write a haiku about space."}],
-    model="meganova-ai/manta-flash-1.0"
+    model="meganova-ai/manta-flash-1.0",
+    stream=True
 )
 
 print("Response: ", end="", flush=True)
