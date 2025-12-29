@@ -6,3 +6,4 @@ class BaseResponse(BaseModel):
     message: str
 
 
+
