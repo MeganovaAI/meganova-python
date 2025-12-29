@@ -3,7 +3,7 @@ import json
 from ..transport import SyncTransport
 from ..models.chat import ChatResponse, ChatStreamChunk
 
-class ChatResource:
+class Completions:
     def __init__(self, transport: SyncTransport):
         self._transport = transport
 
@@ -52,24 +52,6 @@ class ChatResource:
                 except json.JSONDecodeError:
                     continue
 
-    def stream(
-        self,
-        *,
-        messages: List[Dict[str, str]],
-        model: str,
-        temperature: Optional[float] = None,
-        max_tokens: Optional[int] = None,
-        **kwargs,
-    ) -> Iterator[ChatStreamChunk]:
-        """Explicit streaming method that only returns an iterator."""
-        return self.create(
-            messages=messages,
-            model=model,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            stream=True,
-            **kwargs
-        )
-
-
-
+class Chat:
+    def __init__(self, transport: SyncTransport):
+        self.completions = Completions(transport)

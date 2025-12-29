@@ -79,10 +79,13 @@ class SyncTransport:
              message = error_data
              code = "unknown_error"
         elif isinstance(error_data, dict):
-            message = error_data.get("message") or str(payload)
+            message = error_data.get("message")
+            if not message:
+                # Fallback to stringified payload if not empty, else status reason
+                message = str(payload) if payload else (response.reason or f"Error {status}")
             code = error_data.get("code") or "unknown_error"
         else:
-            message = response.text or "Unknown error"
+            message = response.text or response.reason or f"Error {status}"
             code = "unknown_error"
 
         if status == 401:

@@ -1,33 +1,37 @@
 import os
 from dotenv import load_dotenv
 from meganova import MegaNova
-import sys
 
-# Load environment variables from .env file
 load_dotenv()
 
 api_key = os.getenv("MEGANOVA_API_KEY")
 if not api_key:
     print("Error: MEGANOVA_API_KEY not found in environment variables.")
-    print("Please set MEGANOVA_API_KEY in your .env file.")
     exit(1)
 
 client = MegaNova(api_key=api_key)
 
-# --- Streaming Chat Example ---
-print("\n--- Streaming Chat ---")
+print("Streaming chat response...")
+
 try:
-    print("Response: ", end="", flush=True)
-    for chunk in client.chat.stream(
+    # Use 'stream=True' to get an iterator of chunks
+    response = client.chat.completions.create(
         messages=[
-            {"role": "user", "content": "Write a haiku about space."}
+            {"role": "user", "content": "Write a short haiku about coding."}
         ],
         model="meganova-ai/manta-flash-1.0",
-        temperature=0.8
-    ):
-        content = chunk.choices[0].delta.get("content", "")
-        if content:
-            print(content, end="", flush=True)
-    print("\nStream complete.")
+        stream=True
+    )
+
+    print("\nResponse: ", end="", flush=True)
+    
+    for chunk in response:
+        if chunk.choices and chunk.choices[0].delta:
+            content = chunk.choices[0].delta.get("content", "")
+            if content:
+                print(content, end="", flush=True)
+    
+    print("\n\nStream finished.")
+
 except Exception as e:
-    print(f"\nError during streaming: {e}")
+    print(f"An error occurred: {e}")

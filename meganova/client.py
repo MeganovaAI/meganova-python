@@ -3,7 +3,7 @@ from typing import Optional
 from .config import PRODUCTION_API_URL, DEFAULT_TIMEOUT, MAX_RETRIES
 from .transport import SyncTransport
 from .version import __version__
-from .resources.chat import ChatResource
+from .resources.chat import Chat
 from .resources.models_ import ModelsResource
 from .resources.usage import UsageResource
 from .resources.billing import BillingResource
@@ -33,10 +33,7 @@ class MegaNova:
             user_agent=user_agent,
         )
 
-        self.chat = ChatResource(self._transport)
+        self.chat = Chat(self._transport)
         self.models = ModelsResource(self._transport)
         self.usage = UsageResource(self._transport)
         self.billing = BillingResource(self._transport)
-
-
-
