@@ -7,7 +7,10 @@ class ModelInfo(BaseModel):
     description: Optional[str] = None
     created: Optional[int] = None
     context_length: Optional[int] = None
+    tags: Optional[List[str]] = None
+    default: Optional[bool] = None
     pricing: Optional[Dict[str, str]] = None
+    architecture: Optional[Dict[str, Any]] = None
     capabilities: Optional[Dict[str, bool]] = None
     
     # Allow extra fields since the API returns many more
