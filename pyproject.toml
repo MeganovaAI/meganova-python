@@ -4,21 +4,41 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "meganova"
-version = "0.1.0"
-description = "Official Python SDK for Meganova AI"
+version = "0.2.0"
+description = "Official Python SDK for MegaNova AI — Client + Agent SDK"
+license = "MIT"
 authors = [
-    {name = "Meganova AI", email = "support@meganova.ai"},
+    {name = "MegaNova AI", email = "support@meganova.ai"},
 ]
 readme = "README.md"
 requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
     "requests>=2.25.0",
     "pydantic>=2.0.0",
 ]
 
+[project.optional-dependencies]
+agents = [
+    "docker>=7.0",
+]
+sandbox = [
+    "docker>=7.0",
+    "e2b-code-interpreter>=1.0",
+]
+
 [project.urls]
 "Homepage" = "https://meganova.ai"
-"Repository" = "https://github.com/meganova/meganova-python"
-
-
-
+"Repository" = "https://github.com/MeganovaAI/meganova-python"
+"Documentation" = "https://docs.meganova.ai/sdk"
+"Issues" = "https://github.com/MeganovaAI/meganova-python/issues"
