@@ -188,6 +188,8 @@ The repository includes ready-to-run examples in the `examples/` directory.
     python examples/streaming_chat.py
     python examples/list_models.py
     python examples/serverless_models.py
+    python examples/image_generation.py
+    python examples/audio_transcription.py path/to/audio.mp3
     python examples/usage_billing.py
     ```
 
