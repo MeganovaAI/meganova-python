@@ -29,8 +29,11 @@ class SyncTransport:
         json: Any | None = None,
         params: dict | None = None,
         stream: bool = False,
+        files: dict | None = None,
+        data: dict | None = None,
+        base_url_override: str | None = None,
     ) -> Any:
-        url = f"{self.base_url}{path}"
+        url = f"{base_url_override or self.base_url}{path}"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "User-Agent": self.user_agent,
@@ -42,7 +45,9 @@ class SyncTransport:
                 response = self._session.request(
                     method=method,
                     url=url,
-                    json=json,
+                    json=json if files is None else None,
+                    data=data,
+                    files=files,
                     params=params,
                     headers=headers,
                     timeout=self.timeout,
