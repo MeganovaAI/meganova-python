@@ -34,6 +34,9 @@ Meganova supports a wide range of models across different modalities:
     *   `meganova-ai/manta-pro-1.0` (Powerful, 65k context)
     *   `Qwen/Qwen3-235B-A22B-Instruct-2507` (262k context)
     *   `moonshotai/Kimi-K2-Thinking` (Reasoning focused)
+*   **Image Generation**:
+    *   `ByteDance/SeedDream-4-5` (Text-to-Image)
+    *   `black-forest-labs/FLUX.1-dev` (Text-to-Image)
 *   **Video Generation**:
     *   `Byteplus/seedance-1-0-pro-250528` (Text-to-Video)
 *   **Vision**:
@@ -41,7 +44,7 @@ Meganova supports a wide range of models across different modalities:
 *   **Audio**:
     *   `Systran/faster-whisper-large-v3` (Speech-to-Text)
 
-Use `client.models.list()` to see the full list of available models and their capabilities.
+Use `client.models.list()` or `client.serverless.list_models()` to see the full list of available models, capabilities, and pricing.
 
 ## Usage Examples
 
@@ -93,7 +96,72 @@ for model in models:
     print(f"  Tags: {model.tags}")
 ```
 
-### 4. Usage & Billing
+### 4. Serverless Model Discovery
+
+Browse available serverless models with pricing information:
+
+```python
+# List text generation models
+result = client.serverless.list_models(modality="text_generation")
+print(f"Found {result.count} text models")
+for model in result.models:
+    print(f"  {model.model_name} ({model.model_alias})")
+    print(f"    Input: ${model.cost_per_1k_input}/1K tokens")
+    print(f"    Output: ${model.cost_per_1k_output}/1K tokens")
+
+# List image generation models
+result = client.serverless.list_models(modality="text_to_image")
+print(f"Found {result.count} image models")
+for model in result.models:
+    print(f"  {model.model_name}")
+```
+
+### 5. Image Generation
+
+Generate images from text prompts:
+
+```python
+response = client.images.generate(
+    prompt="A futuristic city skyline at sunset, digital art",
+    model="ByteDance/SeedDream-4-5",
+    width=1024,
+    height=1024,
+    num_steps=4,
+    guidance_scale=3.5,
+)
+
+# Response contains base64-encoded image(s)
+for image in response.data:
+    import base64
+    image_bytes = base64.b64decode(image.b64_json)
+    with open("output.png", "wb") as f:
+        f.write(image_bytes)
+    print("Image saved to output.png")
+```
+
+### 6. Audio Transcription
+
+Transcribe audio files to text:
+
+```python
+# From a file path
+result = client.audio.transcribe("recording.mp3")
+print(result.text)
+
+# From a file object
+with open("recording.mp3", "rb") as f:
+    result = client.audio.transcribe(f, filename="recording.mp3")
+    print(result.text)
+
+# With a specific model
+result = client.audio.transcribe(
+    "recording.mp3",
+    model="Systran/faster-whisper-large-v3",
+)
+print(result.text)
+```
+
+### 7. Usage & Billing
 
 ```python
 # Get usage summary
@@ -116,9 +184,11 @@ The repository includes ready-to-run examples in the `examples/` directory.
 
 2.  Run an example:
     ```bash
-    python examples/list_models.py
     python examples/basic_chat.py
     python examples/streaming_chat.py
+    python examples/list_models.py
+    python examples/serverless_models.py
+    python examples/usage_billing.py
     ```
 
 ## Development & Testing
@@ -135,6 +205,9 @@ python examples/test_context_length.py meganova-ai/manta-flash-1.0
 
 *   **Chat Completions**: Full support for streaming and non-streaming requests.
 *   **Model Management**: List and retrieve details for all available models.
+*   **Serverless Model Discovery**: Browse models by modality with pricing info.
+*   **Image Generation**: Generate images from text prompts with configurable parameters.
+*   **Audio Transcription**: Transcribe audio files to text (supports file paths and file objects).
 *   **Usage & Billing**: Monitor your usage and check balances programmatically.
 *   **Type Safety**: Fully typed with Pydantic models for excellent IDE support.
 *   **Robustness**: Built-in retry logic (exponential backoff) and error handling.

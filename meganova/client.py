@@ -7,6 +7,9 @@ from .resources.chat import Chat
 from .resources.models_ import ModelsResource
 from .resources.usage import UsageResource
 from .resources.billing import BillingResource
+from .resources.serverless import ServerlessResource
+from .resources.images import ImagesResource
+from .resources.audio import AudioResource
 
 class MegaNova:
     def __init__(
@@ -37,3 +40,6 @@ class MegaNova:
         self.models = ModelsResource(self._transport)
         self.usage = UsageResource(self._transport)
         self.billing = BillingResource(self._transport)
+        self.serverless = ServerlessResource(self._transport)
+        self.images = ImagesResource(self._transport)
+        self.audio = AudioResource(self._transport)
