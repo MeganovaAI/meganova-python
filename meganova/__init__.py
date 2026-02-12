@@ -3,11 +3,11 @@ from .errors import MeganovaError
 from .models.serverless import ServerlessModel, ServerlessModelsResponse
 from .models.images import GeneratedImage, ImageGenerationResponse
 from .models.audio import TranscriptionResponse
-from .studio import StudioAgent
+from .cloud import CloudAgent
 
 __all__ = [
     "MegaNova",
-    "StudioAgent",
+    "CloudAgent",
     "MeganovaError",
     "ServerlessModel",
     "ServerlessModelsResponse",

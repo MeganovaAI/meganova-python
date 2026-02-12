@@ -1,4 +1,4 @@
-"""Pydantic models for the MegaNova Studio Agent API."""
+"""Pydantic models for the MegaNova Cloud Agent API."""
 
 from typing import Any, Dict, List, Optional
 

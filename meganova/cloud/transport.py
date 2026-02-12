@@ -8,8 +8,8 @@ from ..errors import MeganovaError, APIError, RateLimitError, AuthenticationErro
 from ..version import __version__
 
 
-class StudioTransport:
-    """HTTP transport for Studio Agent API.
+class CloudTransport:
+    """HTTP transport for MegaNova Cloud Agent API.
 
     Unlike the main SDK transport, this does NOT use Bearer auth —
     the agent API key is embedded in the URL path.

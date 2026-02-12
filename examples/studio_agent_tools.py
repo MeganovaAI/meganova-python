@@ -1,4 +1,4 @@
-"""Tool confirmation flow with a MegaNova Studio agent.
+"""Tool confirmation flow with a MegaNova Cloud agent.
 
 Some agents have tools (e.g. create Freshdesk ticket, send email) that require
 user confirmation before executing. This example shows how to handle that.
@@ -12,7 +12,7 @@ import os
 
 from dotenv import load_dotenv
 
-from meganova.studio import StudioAgent
+from meganova.cloud import CloudAgent
 
 load_dotenv()
 
@@ -21,7 +21,7 @@ if not api_key:
     print("Error: STUDIO_AGENT_KEY not found in environment variables.")
     exit(1)
 
-agent = StudioAgent(api_key=api_key)
+agent = CloudAgent(api_key=api_key)
 conv = agent.conversation()
 
 # Start a conversation that might trigger a tool call

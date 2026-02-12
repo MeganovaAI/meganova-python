@@ -1,4 +1,4 @@
-"""Basic chat with a deployed MegaNova Studio agent.
+"""Basic chat with a deployed MegaNova Cloud agent.
 
 Usage:
     export STUDIO_AGENT_KEY=agent_xxx...
@@ -9,7 +9,7 @@ import os
 
 from dotenv import load_dotenv
 
-from meganova.studio import StudioAgent
+from meganova.cloud import CloudAgent
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ if not api_key:
     print("Set it in your .env file or export it directly.")
     exit(1)
 
-agent = StudioAgent(api_key=api_key)
+agent = CloudAgent(api_key=api_key)
 
 # ── Get agent info ──
 info = agent.info()

@@ -1,10 +1,10 @@
-"""StudioAgent — chat with deployed MegaNova Studio agents."""
+"""CloudAgent — chat with deployed MegaNova Cloud agents."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, Iterator, List, Optional, Union
 
-from ..config import STUDIO_API_URL, DEFAULT_TIMEOUT, MAX_RETRIES
+from ..config import CLOUD_API_URL, DEFAULT_TIMEOUT, MAX_RETRIES
 from ..errors import MeganovaError
 from .models import (
     AgentChatResponse,
@@ -13,20 +13,20 @@ from .models import (
     ChatCompletionResponse,
     PendingToolCall,
 )
-from .transport import StudioTransport
+from .transport import CloudTransport
 
 
-class StudioAgent:
-    """Client for a deployed MegaNova Studio agent.
+class CloudAgent:
+    """Client for a deployed MegaNova Cloud agent.
 
     Unlike the main ``MegaNova`` client, this uses the public agent API
     where the API key is part of the URL path — no Bearer token needed.
 
     Example::
 
-        from meganova.studio import StudioAgent
+        from meganova.cloud import CloudAgent
 
-        agent = StudioAgent(api_key="agent_xxx...")
+        agent = CloudAgent(api_key="agent_xxx...")
         info = agent.info()
         print(info.name, info.welcome_message)
 
@@ -38,18 +38,18 @@ class StudioAgent:
         self,
         api_key: str,
         *,
-        base_url: str = STUDIO_API_URL,
+        base_url: str = CLOUD_API_URL,
         timeout: float = DEFAULT_TIMEOUT,
         max_retries: int = MAX_RETRIES,
     ):
         if not api_key or not api_key.startswith("agent_"):
             raise MeganovaError(
-                "Invalid Studio agent API key. "
+                "Invalid agent API key. "
                 "Keys start with 'agent_' — you can find yours in the Studio agent detail page."
             )
         self._api_key = api_key
         self._base_path = f"/agents/v1/{api_key}"
-        self._transport = StudioTransport(
+        self._transport = CloudTransport(
             base_url=base_url,
             timeout=timeout,
             max_retries=max_retries,
@@ -170,7 +170,7 @@ class StudioAgent:
 
 
 class Conversation:
-    """Stateful wrapper around StudioAgent for multi-turn conversations.
+    """Stateful wrapper around CloudAgent for multi-turn conversations.
 
     Automatically tracks conversation_id and pending tool calls.
 
@@ -185,7 +185,7 @@ class Conversation:
             r3 = conv.confirm()  # or conv.reject()
     """
 
-    def __init__(self, agent: StudioAgent, conversation_id: Optional[str] = None):
+    def __init__(self, agent: CloudAgent, conversation_id: Optional[str] = None):
         self._agent = agent
         self.conversation_id = conversation_id
         self.messages: List[Dict[str, str]] = []
