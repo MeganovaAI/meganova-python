@@ -1,4 +1,4 @@
-from .agent import StudioAgent, Conversation
+from .agent import CloudAgent, Conversation
 from .models import (
     AgentChatResponse,
     AgentInfo,
@@ -8,7 +8,7 @@ from .models import (
 )
 
 __all__ = [
-    "StudioAgent",
+    "CloudAgent",
     "Conversation",
     "AgentChatResponse",
     "AgentInfo",

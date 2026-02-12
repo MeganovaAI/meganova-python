@@ -46,16 +46,16 @@ Meganova supports a wide range of models across different modalities:
 
 Use `client.models.list()` or `client.serverless.list_models()` to see the full list of available models, capabilities, and pricing.
 
-## Studio Agents
+## Cloud Agents
 
-Chat with deployed [MegaNova Studio](https://studio.meganova.ai) agents using just an API key — no authentication setup required.
+Chat with deployed [MegaNova Cloud](https://studio.meganova.ai) agents using just an API key — no authentication setup required.
 
 ### Quick Start
 
 ```python
-from meganova.studio import StudioAgent
+from meganova.cloud import CloudAgent
 
-agent = StudioAgent(api_key="agent_xxx...")
+agent = CloudAgent(api_key="agent_xxx...")
 
 # Get agent info
 info = agent.info()
@@ -243,7 +243,7 @@ The repository includes ready-to-run examples in the `examples/` directory.
 1.  Create a `.env` file in the root directory:
     ```env
     MEGANOVA_API_KEY=your_api_key_here
-    STUDIO_AGENT_KEY=agent_xxx...  # Optional, for Studio agent examples
+    STUDIO_AGENT_KEY=agent_xxx...  # Optional, for Cloud agent examples
     ```
 
 2.  Run an example:
@@ -257,7 +257,7 @@ The repository includes ready-to-run examples in the `examples/` directory.
     python examples/audio_transcription.py path/to/audio.mp3
     python examples/usage_billing.py
 
-    # Studio Agent examples
+    # Cloud Agent examples
     python examples/studio_agent_chat.py
     python examples/studio_agent_streaming.py
     python examples/studio_agent_tools.py
@@ -276,7 +276,7 @@ python examples/test_context_length.py meganova-ai/manta-flash-1.0
 ## Features
 
 *   **Chat Completions**: Full support for streaming and non-streaming requests.
-*   **Studio Agents**: Chat with deployed Studio agents via simple API key — multi-turn conversations, tool confirmation, and OpenAI-compatible completions.
+*   **Cloud Agents**: Chat with deployed Cloud agents via simple API key — multi-turn conversations, tool confirmation, and OpenAI-compatible completions.
 *   **Model Management**: List and retrieve details for all available models.
 *   **Serverless Model Discovery**: Browse models by modality with pricing info.
 *   **Image Generation**: Generate images from text prompts with configurable parameters.
