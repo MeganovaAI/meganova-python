@@ -5,8 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "meganova"
 version = "0.3.0"
-description = "Official Python SDK for MegaNova AI — Client + Agent SDK"
+description = "Official Python SDK for MegaNova AI — Inference, Cloud Agents, and Agent SDK"
 license = "MIT"
+keywords = ["meganova", "ai", "agents", "llm", "sdk", "chatbot", "character-ai"]
 authors = [
     {name = "MegaNova AI", email = "support@meganova.ai"},
 ]
@@ -15,12 +16,12 @@ requires-python = ">=3.9"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
