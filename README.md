@@ -1,14 +1,16 @@
-# Meganova Python SDK
+# MegaNova Python SDK
 
-Official Python SDK for the [Meganova AI](https://meganova.ai) platform, designed for simplicity, robustness, and performance.
+Official Python SDK for [MegaNova AI](https://meganova.ai) — inference, cloud agents, and agent SDK.
+
+Also available: **[JavaScript/TypeScript SDK](https://www.npmjs.com/package/meganova)** (`npm install meganova`)
 
 ## Installation
 
 ```bash
-pip install -e .
+pip install meganova
 ```
 
-*Note: This package requires Python 3.8+*
+Requires Python 3.9+.
 
 ## Configuration
 
@@ -272,6 +274,15 @@ A utility script is provided to verify the *actual* enforced context length of a
 ```bash
 python examples/test_context_length.py meganova-ai/manta-flash-1.0
 ```
+
+## SDKs
+
+| Language | Package | Install |
+|----------|---------|---------|
+| Python | [meganova](https://pypi.org/project/meganova/) | `pip install meganova` |
+| JavaScript/TypeScript | [meganova](https://www.npmjs.com/package/meganova) | `npm install meganova` |
+
+Both SDKs share the same API surface: `MegaNova` (inference) + `CloudAgent` (deployed Studio agents).
 
 ## Features
 
