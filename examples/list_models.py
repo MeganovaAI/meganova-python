@@ -2,27 +2,35 @@ import os
 from dotenv import load_dotenv
 from meganova import MegaNova
 
-# Load environment variables from .env file
 load_dotenv()
 
 api_key = os.getenv("MEGANOVA_API_KEY")
 if not api_key:
     print("Error: MEGANOVA_API_KEY not found in environment variables.")
-    print("Please set MEGANOVA_API_KEY in your .env file.")
     exit(1)
 
 client = MegaNova(api_key=api_key)
 
-# --- List Models Example ---
-print("\n--- List Models ---")
+print("--- List Models ---")
 try:
     models = client.models.list()
-    for model in models:
-        print(f"ID: {model.id}")
-        if model.name:
-            print(f"Name: {model.name}")
+    print(f"Total models: {len(models)}\n")
+    for model in models[:10]:
+        print(f"  {model.id}")
+        if model.owned_by:
+            print(f"    Owner: {model.owned_by}")
+        if model.capabilities:
+            caps = [k for k, v in model.capabilities.items() if v]
+            print(f"    Capabilities: {\", \".join(caps)}")
         if model.pricing:
-            print(f"  Pricing: {model.pricing}")
-        print("-" * 20)
+            print(f"    Pricing: {model.pricing}")
+
+    # Get a specific model
+    print("\n--- Get Model ---")
+    info = client.models.get(models[0].id)
+    print(f"Model: {info.id}")
+    print(f"  Name: {info.name}")
+    print(f"  Context: {info.context_length}")
+
 except Exception as e:
-    print(f"Error listing models: {e}")
+    print(f"Error: {e}")
