@@ -4,6 +4,7 @@ from .models.serverless import ServerlessModel, ServerlessModelsResponse
 from .models.images import GeneratedImage, ImageGenerationResponse
 from .models.audio import TranscriptionResponse
 from .models.embeddings import EmbeddingResponse, Embedding
+from .models.videos import VideoGeneration
 from .cloud import CloudAgent
 
 __all__ = [
@@ -17,4 +18,5 @@ __all__ = [
     "TranscriptionResponse",
     "EmbeddingResponse",
     "Embedding",
+    "VideoGeneration",
 ]
