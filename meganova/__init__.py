@@ -1,4 +1,5 @@
 from .client import MegaNova
+from .async_client import AsyncMegaNova
 from .errors import MeganovaError
 from .models.serverless import ServerlessModel, ServerlessModelsResponse
 from .models.images import GeneratedImage, ImageGenerationResponse
@@ -9,6 +10,7 @@ from .cloud import CloudAgent
 
 __all__ = [
     "MegaNova",
+    "AsyncMegaNova",
     "CloudAgent",
     "MeganovaError",
     "ServerlessModel",

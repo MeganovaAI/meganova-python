@@ -37,6 +37,9 @@ sandbox = [
     "docker>=7.0",
     "e2b-code-interpreter>=1.0",
 ]
+async = [
+    "httpx>=0.27",
+]
 
 [project.urls]
 "Homepage" = "https://meganova.ai"
