@@ -1,8 +1,11 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
+
 
 class ModelInfo(BaseModel):
     id: str
+    object: Optional[str] = None
+    owned_by: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None
     created: Optional[int] = None
@@ -12,9 +15,9 @@ class ModelInfo(BaseModel):
     pricing: Optional[Dict[str, str]] = None
     architecture: Optional[Dict[str, Any]] = None
     capabilities: Optional[Dict[str, bool]] = None
-    
-    # Allow extra fields since the API returns many more
+
     model_config = {"extra": "ignore"}
+
 
 class ModelListResponse(BaseModel):
     data: List[ModelInfo]

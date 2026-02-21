@@ -10,6 +10,8 @@ from .resources.billing import BillingResource
 from .resources.serverless import ServerlessResource
 from .resources.images import ImagesResource
 from .resources.audio import AudioResource
+from .resources.embeddings import EmbeddingsResource
+from .resources.videos import VideosResource
 
 class MegaNova:
     def __init__(
@@ -43,3 +45,5 @@ class MegaNova:
         self.serverless = ServerlessResource(self._transport)
         self.images = ImagesResource(self._transport)
         self.audio = AudioResource(self._transport)
+        self.embeddings = EmbeddingsResource(self._transport)
+        self.videos = VideosResource(self._transport)
