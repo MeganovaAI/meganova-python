@@ -1,13 +1,35 @@
-from typing import List
+from typing import List, Optional
 from ..transport import SyncTransport
 from ..models.models_ import ModelInfo
+
 
 class ModelsResource:
     def __init__(self, transport: SyncTransport):
         self._transport = transport
 
-    def list(self) -> List[ModelInfo]:
+    def list(
+        self,
+        *,
+        capability: Optional[str] = None,
+        type: Optional[str] = None,
+    ) -> List[ModelInfo]:
         data = self._transport.request("GET", "/models")
-        # The API returns {"data": [...]}
         raw_models = data.get("data", [])
-        return [ModelInfo(**m) for m in raw_models]
+        models = [ModelInfo(**m) for m in raw_models]
+
+        if capability:
+            models = [
+                m for m in models
+                if m.capabilities and m.capabilities.get(capability)
+            ]
+        if type:
+            models = [
+                m for m in models
+                if m.tags and type in m.tags
+            ]
+
+        return models
+
+    def get(self, model_id: str) -> ModelInfo:
+        data = self._transport.request("GET", f"/models/{model_id}")
+        return ModelInfo(**data)
