@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "meganova"
-version = "0.3.0"
+version = "0.4.0"
 description = "Official Python SDK for MegaNova AI — Inference, Cloud Agents, and Agent SDK"
 license = "MIT"
 keywords = ["meganova", "ai", "agents", "llm", "sdk", "chatbot", "character-ai"]
